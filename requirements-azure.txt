@@ -1,0 +1,3 @@
+-r requirements.txt
+azure-storage-blob>=12.25,<13
+pyodbc>=5,<6
