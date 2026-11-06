@@ -107,7 +107,10 @@ def test_local_mode_pages_and_demo(client,app,monkeypatch):
     login(client,'alice')
     for url in ['/dashboard','/profile','/reports/new','/integrations']:
         assert client.get(url).status_code==200
-    assert b'Optional SDK not installed' in client.get('/integrations').data
+    lab=client.get('/integrations').data
+    assert b'One-time server setup' in lab
+    assert b'name="account"' in lab and b'name="token"' in lab
+    assert b'<fieldset disabled' not in lab
     assert post(client,'/integrations',{'action':'test'}).status_code==200
     login(client,'staff')
     assert client.get('/staff').status_code==200

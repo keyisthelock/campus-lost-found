@@ -44,7 +44,7 @@ Tests use temporary isolated SQLite databases, real CSRF tokens and Flask's test
 
 ## Architecture
 
-`app.py` is the application factory, session authentication, route authorization, forms and CLI. `models.py` defines the relational schema. `services.py` contains image processing, approval and aggregate queries. `azure_integration.py` isolates optional network code. Reusable Jinja templates render the interface; CSS and JavaScript need no build system.
+`app.py` is the application factory, session authentication, route authorization, forms and CLI. `models.py` defines the relational schema. `services.py` contains image processing, approval and aggregate queries. `azure_integration.py` isolates optional network code. Reusable Jinja templates render the interface; CSS and JavaScript need no build system. The motion system adapts the earlier PhishGuard scroll reveals: staggered entrances, a gently floating illustration, pointer parallax and hover feedback. CSS and the Web Animations API honor reduced-motion preferences without external animation libraries.
 
 ```mermaid
 flowchart LR
@@ -109,7 +109,7 @@ Only one staff approval can claim an open listing: a conditional SQL UPDATE chan
 
 ## Optional Azure Blob lab
 
-Install `requirements-azure.txt` only if needed (this also includes the optional SQL driver). All cloud actions remain disabled gracefully when the Blob SDK is absent. The whole application works without Azure. The lab does not contact Azure on GET, login or startup. Each POST either tests a connection or copies an existing photograph belonging to the current user. Local storage remains authoritative and survives cloud failure.
+For Blob Storage only, run `python -m pip install azure-storage-blob` and restart Flask. Alternatively, install `requirements-azure.txt` if you also need the optional SQL driver. The credential fields remain visible and editable even without the SDK; connection buttons explain the required setup. The form offers token show/hide and Clear fields, and never restores a token after navigation. All cloud actions remain disabled gracefully when the Blob SDK is absent. The whole application works without Azure. The lab does not contact Azure on GET, login or startup. Each POST either tests a connection or copies an existing photograph belonging to the current user. Local storage remains authoritative and survives cloud failure.
 
 1. Create an Azure Storage account and an existing **private** container outside this application. Do not enable anonymous blob access.
 2. Generate a **container-scoped SAS** with HTTPS-only access and expiry within 24 hours. Use **read** to test container properties, **read plus create/write** for unique image uploads. Do not grant delete, list or administrative permissions. Prefer a user-delegation SAS where available.
@@ -147,6 +147,7 @@ MVP boundaries: no email verification, password reset, MFA, login throttling, ma
 **DP-900:** structured transactional relational data versus unstructured blob photographs, OLTP application queries versus grouped descriptive analytics, local SQLite versus managed Azure SQL, and the distinction between storage and database services.
 
 **Cloud security:** least privilege, time-bound delegated credentials, secret minimization, HTTPS, private containers, destination validation, server-side configuration, defense in depth and retaining local availability when cloud services fail. This project demonstrates concepts; it does not constitute certification or a hardened production service.
+
 
 
 
